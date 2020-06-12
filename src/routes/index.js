@@ -11,12 +11,12 @@ router.get('/', async (req, res) => {
     res.sendStatus(204)
   } else {
     const bannedChans = data.map(c => c.name).sort()
-    res.send(bannedChans.join('\n'))
+    res.send(bannedChans.join(', '))
   }
 })
 
 router.get('/chan/:name', async (req, res) => {
-  const data = await Chans.read(req.params.name)
+  const data = await Chans.read(req.params.name.replace(/_/g, '#'))
     .catch(err => {
       res.status(500).send(err)
     })
@@ -29,7 +29,7 @@ router.get('/chan/:name', async (req, res) => {
 })
 
 router.post('/chan/:name', async (req, res) => {
-  await Chans.create(req.params.name)
+  await Chans.create(req.params.name.replace(/_/g, '#'))
     .catch(err => {
       res.status(500).send(err)
     })
@@ -38,7 +38,7 @@ router.post('/chan/:name', async (req, res) => {
 })
 
 router.delete('/chan/:name', async (req, res) => {
-  await Chans.delete(req.params.name)
+  await Chans.delete(req.params.name.replace(/_/g, '#'))
     .catch(err => {
       res.status(500).send(err)
     })
