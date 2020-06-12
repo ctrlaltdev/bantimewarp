@@ -22,7 +22,7 @@ router.get('/chan/:name', async (req, res) => {
     })
 
   if (!data) {
-    res.status(404).send('not banned')
+    res.send('not banned')
   } else {
     res.send('banned')
   }
