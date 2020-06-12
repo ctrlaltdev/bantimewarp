@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/chan/:name', async (req, res) => {
-  const data = await Chans.read(req.params.name.replace(/_/g, '#'))
+  const data = await Chans.read(req.params.name.toLowerCase().replace(/_/g, '#'))
     .catch(err => {
       res.status(500).send(err)
     })
@@ -29,7 +29,7 @@ router.get('/chan/:name', async (req, res) => {
 })
 
 router.post('/chan/:name', async (req, res) => {
-  await Chans.create(req.params.name.replace(/_/g, '#'))
+  await Chans.create(req.params.name.toLowerCase().replace(/_/g, '#'))
     .catch(err => {
       res.status(500).send(err)
     })
@@ -38,7 +38,7 @@ router.post('/chan/:name', async (req, res) => {
 })
 
 router.delete('/chan/:name', async (req, res) => {
-  await Chans.delete(req.params.name.replace(/_/g, '#'))
+  await Chans.delete(req.params.name.toLowerCase().replace(/_/g, '#'))
     .catch(err => {
       res.status(500).send(err)
     })
